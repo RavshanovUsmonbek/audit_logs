@@ -21,7 +21,7 @@ from tools import auth  # pylint: disable=E0401
 import flask
 # from pylon.core.tools import log
 
-from plugins.audit_logs.serializers.log import logs_schama
+from ...serializers.log import logs_schama
 
 
 class API(flask_restful.Resource):  # pylint: disable=R0903
@@ -31,14 +31,6 @@ class API(flask_restful.Resource):  # pylint: disable=R0903
     def __init__(self, module):
         self.module = module
 
-    # @auth.decorators.check_api({
-    #     "permissions": ["engagements.issues.logs.view"],
-    #     "recommended_roles": {
-    #         "administration": {"admin": True, "viewer": False, "editor": True},
-    #         "default": {"admin": True, "viewer": False, "editor": True},
-    #         "developer": {"admin": True, "viewer": False, "editor": True},
-    #     }
-    # })
     def get(self, project_id):  # pylint: disable=R0201
         args = flask.request.args
         total, logs = self.module.get_logs(project_id, args)
